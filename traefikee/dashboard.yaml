@@ -1,0 +1,16 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: dashboard-ingress
+  namespace: traefikee
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`dashboard.vlv.demo.traefiklabs.tech`)
+      kind: Rule
+      services:
+        - name: api@internal
+          kind: TraefikService
+  tls:
+    certResolver: default
