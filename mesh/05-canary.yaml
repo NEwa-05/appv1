@@ -1,0 +1,29 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-canary
+  namespace: vlv
+  labels:
+    app: app
+spec:
+  type: ClusterIP
+  ports:
+    - port: 80
+      name: app
+  selector:
+    app: app
+
+---
+apiVersion: split.smi-spec.io/v1alpha3
+kind: TrafficSplit
+metadata:
+  name: traffic-split
+  namespace: vlv
+spec:
+  service: app-canary
+  backends:
+    - service: app-v1
+      weight: 100
+    - service: app-v2
+      weight: 0

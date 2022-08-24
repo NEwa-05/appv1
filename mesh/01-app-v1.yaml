@@ -1,0 +1,46 @@
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: app-v1
+  namespace: vlv
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: app-v1
+  template:
+    metadata:
+      labels:
+        app: app-v1
+    spec:
+      serviceAccount: app-server
+      containers:
+        - name: app-v1
+          image: containous/traefikee-webapp-demo:v2
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 80
+              name: app-v1
+          args:
+            - -name=app-v1
+            - -ascii
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-v1
+  namespace: vlv
+  labels:
+    app: app-v1
+  annotations:
+    maesh.containo.us/traffic-type: "http"
+    maesh.containo.us/retry-attempts: "2"
+spec:
+  type: ClusterIP
+  ports:
+    - port: 80
+      name: app-v1
+  selector:
+    app: app-v1

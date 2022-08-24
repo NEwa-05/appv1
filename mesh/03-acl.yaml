@@ -1,0 +1,33 @@
+---
+apiVersion: specs.smi-spec.io/v1alpha3
+kind: HTTPRouteGroup
+metadata:
+  name: http-everything
+  namespace: vlv
+spec:
+  matches:
+    - name: everything
+      pathRegex: ".*"
+      methods: ["*"]
+
+---
+kind: TrafficTarget
+apiVersion: access.smi-spec.io/v1alpha2
+metadata:
+  name: whatever
+  namespace: vlv
+spec:
+  destination:
+    kind: ServiceAccount
+    name: app-server
+    namespace: vlv
+    port: 80
+  rules:
+    - kind: HTTPRouteGroup
+      name: http-everything
+      matches:
+        - everything
+  sources:
+    - kind: ServiceAccount
+      name: app-client
+      namespace: vlv
