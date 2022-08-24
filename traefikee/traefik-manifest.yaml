@@ -1853,7 +1853,7 @@ spec:
               cpu: "1000m"
       containers:
         - name: "vlv-controller"
-          image: traefik/traefikee:v2.7.0
+          image: traefik/traefikee:v2.7.1
           imagePullPolicy: IfNotPresent
           env:
             - name: POD_NAME
@@ -2016,7 +2016,7 @@ spec:
               cpu: "1000m"
       containers:
         - name: "vlv-proxy"
-          image: traefik/traefikee:v2.7.0
+          image: traefik/traefikee:v2.7.1
           imagePullPolicy: IfNotPresent
           env:
             - name: POD_NAME
@@ -2153,7 +2153,7 @@ spec:
               cpu: "1000m"
       containers:
         - name: "vlv-plugin-registry"
-          image: traefik/traefikee:v2.7.0
+          image: traefik/traefikee:v2.7.1
           imagePullPolicy: IfNotPresent
           env:
             - name: POD_NAME
@@ -2252,7 +2252,7 @@ spec:
       terminationGracePeriodSeconds: 30
       containers:
         - name: maesh-mesh
-          image: traefik/traefikee:v2.7.0
+          image: traefik/traefikee:v2.7.1
           imagePullPolicy: IfNotPresent
           securityContext:
             readOnlyRootFilesystem: true
@@ -2353,7 +2353,7 @@ spec:
       serviceAccountName: "vlv-svc-acc"
       containers:
       - name: patch-dns
-        image: traefik/traefikee:v2.7.0
+        image: traefik/traefikee:v2.7.1
         command:
           - "/traefikee"
           - "patch-dns"
