@@ -1,0 +1,62 @@
+## Header
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: test-header
+  namespace: app
+spec:
+  headers:
+    sslRedirect: true
+    customRequestHeaders:
+      X-Custom-Header: "this_is_a_custom_header"
+
+## Rate limit
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: ratelimit
+  namespace: app
+spec:
+  plugin:
+    rateLimit:
+      average: 2
+      burst: 2
+
+## Open ID connect
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: oidc-auth
+  namespace: app
+spec:
+  plugin:
+    oidcAuth:
+      source: oidcSource
+      scopes:
+        - openid
+      redirectUrl: "/cback"
+      session:
+        name: "%s-session"
+        path: "/"
+        secret: "2h*85uRQO2&u0Cz7"
+        expiry: 86400
+      forwardHeaders:
+        X-Traefik-Group: groups
+      claims: Contains(`groups`, `admin`)
+
+# JWT
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: jwt-auth
+  namespace: app
+spec:
+  plugin:
+    jwtAuth:
+      source: jwtSource
+      forwardHeaders:
+        X-User: id

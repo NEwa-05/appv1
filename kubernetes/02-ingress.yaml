@@ -1,0 +1,68 @@
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: app-tls
+  namespace: app
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: Host(`app.vlv.demo.traefiklabs.tech`)
+      services:
+        - name: app-v1
+          port: 80
+      middlewares:
+      #  - name: test-header
+      #  - name: oidc-auth
+      #  - name: ratelimit
+      #  - name: jwt-auth
+  tls:
+    certResolver: default
+
+#---
+#apiVersion: traefik.containo.us/v1alpha1
+#kind: IngressRoute
+#metadata:
+#  name: app-tls-api
+#  namespace: app
+#spec:
+#  entryPoints:
+#    - websecure
+#  routes:
+#    - kind: Rule
+#      match: Host(`app.vlv.demo.traefiklabs.tech`) && Path(`/api`)
+#      services:
+#        - name: app-v1
+#          port: 80
+#      middlewares:
+#      #  - name: test-header
+#      #  - name: oidc-auth
+#      #  - name: ratelimit
+#        - name: jwt-auth
+#  tls:
+#    certResolver: default
+#
+#---
+#apiVersion: traefik.containo.us/v1alpha1
+#kind: IngressRoute
+#metadata:
+#  name: app-tls-api
+#  namespace: app
+#spec:
+#  entryPoints:
+#    - websecure
+#  routes:
+#    - kind: Rule
+#      match: Host(`app.vlv.demo.traefiklabs.tech`) && Path(`/api`) && Method(`POST`)
+#      services:
+#        - name: app-v1
+#          port: 80
+#      middlewares:
+#      #  - name: test-header
+#      #  - name: oidc-auth
+#      #  - name: ratelimit
+#        - name: jwt-auth
+#  tls:
+#    certResolver: default
