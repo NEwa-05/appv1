@@ -44,7 +44,8 @@ spec:
         secret: "2h*85uRQO2&u0Cz7"
         expiry: 86400
       forwardHeaders:
-        X-Traefik-Group: groups
+        X-Traefik-Scope: groups
+        X-Traefik-Username: username
       claims: Contains(`groups`, `admin`)
 
 # JWT
@@ -59,4 +60,6 @@ spec:
     jwtAuth:
       source: jwtSource
       forwardHeaders:
-        X-User: id
+        X-Traefik-scope: groups
+        X-Traefik-Username: username
+      claims: Contains(`groups`, `admin`)
