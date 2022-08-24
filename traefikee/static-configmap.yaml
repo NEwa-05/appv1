@@ -5,7 +5,7 @@ metadata:
   name: vlv-static-config
   namespace: traefikee
 data:
-  static.yaml:
+  static.yaml: |
     entryPoints:
       metrics:
         address: :8080
