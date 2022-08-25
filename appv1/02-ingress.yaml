@@ -14,8 +14,8 @@ spec:
         - name: app-v1
           port: 80
       middlewares:
-        - name: test-header
-        - name: oidc-auth
+      #  - name: test-header
+      #  - name: oidc-auth
       #  - name: ratelimit
       #  - name: jwt-auth
   tls:
