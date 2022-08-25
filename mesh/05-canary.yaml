@@ -24,6 +24,6 @@ spec:
   service: app-canary
   backends:
     - service: app-v1
-      weight: 50
+      weight: 100
     - service: app-v2
-      weight: 50
+      weight: 0
